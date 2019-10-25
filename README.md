@@ -16,8 +16,8 @@ Concerning the deformation part, other options are availabe :
   
 
 Three different trained model are available corresponding to the different options --use-mask, --segmentation. The models availabla have been trained with the following command line :
-  - python3.6 -m main --segmentation --epochs 40 --lr-decrease
-  - python3.6 -m main --use-mask --epochs 40 --lr-decrease
+  - python3.6 -m coupling_registration_segmentation.main --segmentation --epochs 40 --lr-decrease
+  - python3.6 -m coupling_registration_segmentation.main --use-mask --epochs 40 --lr-decrease
 All the other options are the default options.
 The train, validation and test split are also available.
 
@@ -26,6 +26,6 @@ Concerning the inference, 2 functions are available :
   - model_evaluation.py to predict the output deformation and calculate the dice scores on the different brain structures.
 
 To perform the inference on the two models provided, use the following command line :
-  - python3.6 -m model_output --pretrained --load-segmentation --all-label --use-mask --aseg --test --plot --load-name model_segmentation
-  - python3.6 -m model_output --pretrained --all-label --use-mask --aseg --test --plot --load-name model_use_mask
+  - python3.6 -m coupling_registration_segmentation.model_output --pretrained --load-segmentation --all-label --use-mask --aseg --test --plot --load-name model_segmentation
+  - python3.6 -m coupling_registration_segmentation.model_output --pretrained --all-label --use-mask --aseg --test --plot --load-name model_use_mask
 Same command line for the model_evaluation.py functions
