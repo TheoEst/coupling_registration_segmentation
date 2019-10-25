@@ -285,21 +285,23 @@ def main(args):
     session_name = args.session_name + '_' + time.strftime('%m.%d %Hh%M')
     
     # Log
-    log_path = save_path + 'training_log/' + session_name + '.log'
+    log_folder = save_path + 'training_log/'
+    log_path = log_folder + session_name + '.log'
+
+    for folder in [save_path, args.model_path, log_folder, dataset_path]:
+        if not os.path.isdir(folder):
+            os.makedirs(folder)
+    
     logging = log.set_logger(log_path)
     
     for arg, value in sorted(vars(args).items()):
         logging.info("%s: %r", arg, value)
         
-    for folder in [save_path, args.model_path, log_path, dataset_path]:
-        if not os.path.isdir(folder):
-            os.makedirs(folder)
-    
-    args.crop_size = (160, 176, 208)
+    dim = (160, 176, 208)
 
     # DataGen Parameters
     params = {'data_path': data_path,
-              'dim': args.crop_size,
+              'dim': dim,
               'batch_size': args.batch_size,
               'shuffle': True,
               'load_all_in_memory': args.load_all_in_memory,
