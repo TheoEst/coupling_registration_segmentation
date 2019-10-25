@@ -304,7 +304,6 @@ def main(args):
               'dim': dim,
               'batch_size': args.batch_size,
               'shuffle': True,
-              'load_all_in_memory': args.load_all_in_memory,
               'translation': args.translation}
 
     # Datasets

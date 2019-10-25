@@ -241,7 +241,7 @@ class FreeSurferDataGenerator(DataGenerator):
     def __init__(self, list_IDs, data_path, batch_size=4, dim=(64, 64, 64),
                  n_channels=1, shuffle=True, validation=False,
                  use_mask=True, segmentation=False,
-                 translation=False):
+                 translation=False, all_label=False):
 
         super(FreeSurferDataGenerator, self).__init__(list_IDs, data_path,
                                                       batch_size, dim,
