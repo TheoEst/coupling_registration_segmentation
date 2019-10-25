@@ -6,7 +6,6 @@ Created on Mon Feb 11 13:29:50 2019
 @author: theoestienne
 """
 import os
-import numpy as np
 import keras.layers as layers
 import argparse
 import keras.utils
@@ -14,13 +13,9 @@ import keras.models as models
 import keras.callbacks as callbacks
 import keras.losses
 import keras.optimizers as optimizers
-import keras.backend as K
-import sklearn.model_selection as model_selection
 import time
 import functools
 import math
-import tensorflow as tf
-from tensorflow.python.client import timeline
 
 # My package
 from coupling_registration_segmentation import model_loader
@@ -39,6 +34,7 @@ else:
     main_path = main_path[:n]
     print(main_path)
 
+repo_name = 'coupling_registration_segmentation/'
 
 def parse_args(add_help=True):
 
@@ -282,26 +278,28 @@ def design_loss(args):
 def main(args):
 
     data_path = main_path + 'data/' + args.folder
-    dataset_path = main_path + '/datasets/'
-    save_path = main_path + 'save/'
-    args.model_path = main_path + '/models/'
+    dataset_path = main_path + repo_name + 'datasets/'
+    save_path = main_path + repo_name +  'save/'
+    args.model_path = main_path + repo_name + 'models/'
 
     session_name = args.session_name + '_' + time.strftime('%m.%d %Hh%M')
-
-    print(data_path)
-
-    args.crop_size = (160, 176, 208)
-
+    
     # Log
     log_path = save_path + 'training_log/' + session_name + '.log'
     logging = log.set_logger(log_path)
-
+    
     for arg, value in sorted(vars(args).items()):
         logging.info("%s: %r", arg, value)
+        
+    for folder in [save_path, args.model_path, log_path, dataset_path]:
+        if not os.path.isdir(folder):
+            os.makedirs(folder)
+    
+    args.crop_size = (160, 176, 208)
 
     # DataGen Parameters
     params = {'data_path': data_path,
-              'dim': dim,
+              'dim': args.crop_size,
               'batch_size': args.batch_size,
               'shuffle': True,
               'load_all_in_memory': args.load_all_in_memory,

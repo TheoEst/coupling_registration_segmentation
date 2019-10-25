@@ -7,7 +7,6 @@ Created on Tue Feb 26 17:54:05 2019
 Model inference and save of the predictions
 """
 import os
-import numpy as np
 import argparse
 import keras.utils
 
@@ -27,6 +26,7 @@ else:
     main_path = main_path[:n]
     print(main_path)
 
+repo_name = 'coupling_registration_segmentation/'
 
 def parse_args():
 
@@ -58,15 +58,19 @@ def parse_args():
 
 
 def predict(args):
+    
     data_path = main_path + 'data/' + args.folder
-	dataset_path = main_path + 'datasets/'
-    model_path = main_path + '/models/'
-
-    save_path = main_path + 'save/miccai_output/'
-    plot_path = main_path + 'save/miccai_plot/'
-
-    args.model_path = model_path
-
+    dataset_path = main_path + repo_name + 'datasets/'
+    save_path = main_path + repo_name +  'save/'
+    args.model_path = main_path + repo_name + 'models/'
+    
+    save_path = save_path + 'miccai_output/'
+    plot_path = save_path + 'miccai_plot/'
+     
+    for folder in [save_path, args.model_path, dataset_path]:
+        if not os.path.isdir(folder):
+            os.makedirs(folder)
+    
     dim = (160, 176, 208)
     
     # Parameters
@@ -77,7 +81,7 @@ def predict(args):
               'translation':args.translation}
 
     # Datasets
-	(files_train, files_validation,
+    (files_train, files_validation,
 	files_test) = Dataset.load_existing_dataset(dataset_path)
 
     # Generators
