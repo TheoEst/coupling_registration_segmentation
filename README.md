@@ -15,8 +15,17 @@ Concerning the deformation part, other options are availabe :
   - --freeze-non-rigid and --freeze-affine to freeze the non rigid and affine layers
   
 
-Three different trained model are available corresponding to the different options --use-mask, --segmentation and default. And the train, validation and test split are also available.
+Three different trained model are available corresponding to the different options --use-mask, --segmentation. The models availabla have been trained with the following command line :
+  - python3.6 -m main --segmentation --epochs 40 --lr-decrease
+  - python3.6 -m main --use-mask --epochs 40 --lr-decrease
+All the other options are the default options.
+The train, validation and test split are also available.
 
 Concerning the inference, 2 functions are available : 
   - model_output.py to predict the output deformation and save and/or plot them.
   - model_evaluation.py to predict the output deformation and calculate the dice scores on the different brain structures.
+
+To perform the inference on the two models provided, use the following command line :
+  - python3.6 -m model_output --pretrained --load-segmentation --all-label --use-mask --aseg --test --plot --load-name model_segmentation
+  - python3.6 -m model_output --pretrained --all-label --use-mask --aseg --test --plot --load-name model_use_mask
+Same command line for the model_evaluation.py functions
