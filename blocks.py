@@ -139,10 +139,10 @@ def InputBlock(x, channels, input_channels=2):
 def DecoderBlock(skip_x, pool_blocks, channels):
 
     out = skip_x[-1]
-
-	for i in range(pool_blocks):
-		out = SkipDeconvBlock(out, skip_x[-i-2],
-			channels[-i-1])
+    
+    for i in range(pool_blocks):
+        out = SkipDeconvBlock(out, skip_x[-i-2],
+                              channels[-i-1])
 
     return out
 

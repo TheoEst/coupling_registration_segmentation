@@ -118,9 +118,9 @@ def generalised_dice(y_true, y_pred, k):
 
 
 def dice(y_true, y_pred, k):
-	'''
-		Dice loss between the ground-truth brain and the predicted deformed brain
-	'''
+    '''
+        Dice loss between the ground-truth brain and the predicted deformed brain
+    '''
     if k == 0:
         return 0
     else:

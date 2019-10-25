@@ -28,7 +28,6 @@ from coupling_registration_segmentation import Dataset
 from coupling_registration_segmentation import ImageTensorboard
 from coupling_registration_segmentation import losses
 from coupling_registration_segmentation import log
-from coupling_registration_segmentation import intensity_range_standardization
 from coupling_registration_segmentation import utils
 
 main_path = os.path.abspath(__file__)
@@ -154,11 +153,11 @@ def parse_args(add_help=True):
 
     parser.add_argument('--all-label', action='store_true',
                         help='Use all label of the aseg files')
-						
-	parser.add_argument('--aseg', action='store_true', default=False,
+    
+    parser.add_argument('--aseg', action='store_true', default=False,
                         help='use aseg label')
-
-	parser.add_argument('--w2', type=float, default=1,
+    
+    parser.add_argument('--w2', type=float, default=1,
                         help='Coefficient for the source and reference dice loss [see article]')
     return parser
 
@@ -283,7 +282,7 @@ def design_loss(args):
 def main(args):
 
     data_path = main_path + 'data/' + args.folder
-	dataset_path = main_path + '/datasets/'
+    dataset_path = main_path + '/datasets/'
     save_path = main_path + 'save/'
     args.model_path = main_path + '/models/'
 
@@ -309,7 +308,7 @@ def main(args):
               'translation': args.translation}
 
     # Datasets
-	if args.create_new_split:
+    if args.create_new_split:
 
         if args.use_mask or args.segmentation:
             files = Dataset.load_freesurfer_datasets(data_path)
@@ -320,7 +319,7 @@ def main(args):
          files_test) = Dataset.create_dataset(files, dataset_path)
 
     else:
-		(files_train, files_validation,
+        (files_train, files_validation,
          files_test) = Dataset.load_existing_dataset(dataset_path)
 
     # Generators
@@ -329,7 +328,7 @@ def main(args):
         params['use_mask'] = args.use_mask
         params['segmentation'] = args.segmentation
         params['all_label'] = args.all_label
-		params['aseg'] = args.aseg
+        params['aseg'] = args.aseg
     else:
         DataGen = Dataset.DataGenerator
 
