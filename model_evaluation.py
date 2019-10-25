@@ -50,7 +50,8 @@ def parse_args():
 
 def predict(args):
     data_path = main_path + 'data/' + args.folder
-    model_path = main_path + 'save/models/'
+	dataset_path = main_path + 'datasets/'
+    args.model_path = main_path + '/models/'
     save_path = main_path + 'save/miccai_results/'
 
     args.model_path = model_path

@@ -49,7 +49,8 @@ def parse_args():
     
     parser.add_argument('--pretrained', action='store_true')
     
-    parser.add_argument('--load-segmentation', action='store_true')
+    parser.add_argument('--load-segmentation', action='store_true',
+						help='This option is needed when you want to deformed the ground-truth segmentation but load a bi task model')
         
     args = parser.parse_args()
     
@@ -58,7 +59,8 @@ def parse_args():
 
 def predict(args):
     data_path = main_path + 'data/' + args.folder
-    model_path = main_path + 'save/models/'
+	dataset_path = main_path + 'datasets/'
+    model_path = main_path + '/models/'
 
     save_path = main_path + 'save/miccai_output/'
     plot_path = main_path + 'save/miccai_plot/'
@@ -75,19 +77,8 @@ def predict(args):
               'translation':args.translation}
 
     # Datasets
-    if args.create_new_split:
-
-        if args.use_mask or args.segmentation:
-            files = Dataset.load_freesurfer_datasets(data_path)
-        else:
-            files = Dataset.load_datasets(data_path)
-
-        (files_train, files_validation,
-         files_test) = Dataset.create_dataset(files, data_path)
-
-    else:
-        (files_train, files_validation,
-         files_test) = Dataset.load_existing_dataset(data_path)
+	(files_train, files_validation,
+	files_test) = Dataset.load_existing_dataset(dataset_path)
 
     # Generators
     if args.use_mask or args.segmentation:
