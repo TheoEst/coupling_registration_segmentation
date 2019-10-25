@@ -149,10 +149,7 @@ def parse_args(add_help=True):
 
     parser.add_argument('--all-label', action='store_true',
                         help='Use all label of the aseg files')
-    
-    parser.add_argument('--aseg', action='store_true', default=False,
-                        help='use aseg label')
-    
+       
     parser.add_argument('--w2', type=float, default=1,
                         help='Coefficient for the source and reference dice loss [see article]')
     return parser
@@ -327,7 +324,6 @@ def main(args):
         params['use_mask'] = args.use_mask
         params['segmentation'] = args.segmentation
         params['all_label'] = args.all_label
-        params['aseg'] = args.aseg
     else:
         DataGen = Dataset.DataGenerator
 

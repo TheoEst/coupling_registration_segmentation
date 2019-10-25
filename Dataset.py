@@ -339,5 +339,4 @@ class FreeSurferDataGenerator(DataGenerator):
 
         one_hot = np.eye(n_class)[aseg]
 
-
         return brain, one_hot
