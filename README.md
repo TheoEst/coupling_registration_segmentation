@@ -1,6 +1,7 @@
 # coupling_registration_segmentation
 This repository is the official repository of the article U-ReSNet: Ultimate coupling of Registration and Segmentation with deep Nets presented in Miccai 2019 (Shenzhen)
 
+The article is available here : https://link.springer.com/chapter/10.1007/978-3-030-32248-9_35
 
 To train the model, the user may have three different options : 
   - By default, the model will be train only on the registration without having any segmentation task, or deformation of the segmentations masks
