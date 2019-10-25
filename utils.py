@@ -9,9 +9,9 @@ import keras.models as models
 import numpy as np
 
 # My package
-from miccai_public import diffeomorphicTransformer as Transformer
-from miccai_public import losses
-from miccai_public import blocks
+from coupling_registration_segmentation import diffeomorphicTransformer as Transformer
+from coupling_registration_segmentation import losses
+from coupling_registration_segmentation import blocks
 
 main_path = os.path.abspath(__file__)
 n = main_path.find('Python')

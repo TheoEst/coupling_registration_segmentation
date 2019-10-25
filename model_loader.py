@@ -10,8 +10,8 @@ Creation of the model
 
 import keras.layers as layers
 import keras.models as models
-from miccai_public import diffeomorphicTransformer as Transformer
-from miccai_public import blocks
+from coupling_registration_segmentation import diffeomorphicTransformer as Transformer
+from coupling_registration_segmentation import blocks
 
 
 def Encoder(pool_blocks, channels, dim):

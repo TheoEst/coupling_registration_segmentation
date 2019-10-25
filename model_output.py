@@ -12,10 +12,10 @@ import argparse
 import keras.utils
 
 # My package
-from miccai.keras import Dataset
-from miccai.keras import utils
-from miccai.keras import main
-from miccai.keras import plot
+from coupling_registration_segmentation import Dataset
+from coupling_registration_segmentation import utils
+from coupling_registration_segmentation import main
+from coupling_registration_segmentation import plot
 
 main_path = os.path.abspath(__file__)
 n = main_path.find('Python')

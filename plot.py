@@ -13,7 +13,7 @@ import os
 import pandas as pd
 
 # My package
-from miccai_public import utils
+from coupling_registration_segmentation import utils
 
 
 def plot_contour(X, y, gt, plot_path, args):

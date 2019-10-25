@@ -23,13 +23,13 @@ import tensorflow as tf
 from tensorflow.python.client import timeline
 
 # My package
-from miccai_public import model_loader
-from miccai_public import Dataset
-from miccai_public import ImageTensorboard
-from miccai_public import losses
-from miccai_public import log
-from miccai_public import intensity_range_standardization
-from miccai_public import utils
+from coupling_registration_segmentation import model_loader
+from coupling_registration_segmentation import Dataset
+from coupling_registration_segmentation import ImageTensorboard
+from coupling_registration_segmentation import losses
+from coupling_registration_segmentation import log
+from coupling_registration_segmentation import intensity_range_standardization
+from coupling_registration_segmentation import utils
 
 main_path = os.path.abspath(__file__)
 n = main_path.find('Python')

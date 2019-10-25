@@ -14,7 +14,7 @@ import nibabel.freesurfer.mghformat as mgh
 import sklearn.model_selection as model_selection
 from sklearn import preprocessing
 
-from miccai_public import transformations
+from coupling_registration_segmentation import transformations
 
 
 def aseg_label(all_label=False):

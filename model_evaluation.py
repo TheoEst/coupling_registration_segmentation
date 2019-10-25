@@ -13,10 +13,10 @@ from tqdm import tqdm
 import pandas as pd
 
 # My package
-from miccai_public import Dataset
-from miccai_public import utils
-from miccai_public import main
-from miccai_public import metrics
+from coupling_registration_segmentation import Dataset
+from coupling_registration_segmentation import utils
+from coupling_registration_segmentation import main
+from coupling_registration_segmentation import metrics
 
 main_path = os.path.abspath(__file__)
 n = main_path.find('Python')
