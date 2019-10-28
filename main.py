@@ -411,7 +411,6 @@ def train(model, training_generator, validation_generator, callbacks, args):
 
     fit_kwargs = {'epochs': args.epochs,
                   'callbacks': callbacks,
-                  'multiprocessing' : False,
                   'workers' : args.workers
                   }
 
