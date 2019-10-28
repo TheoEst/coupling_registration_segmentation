@@ -107,9 +107,10 @@ def predict(args):
         model.compile(optimizer='adam')
 
         if args.load_segmentation:
+            all_label_saved = args.all_label
             args.segmentation, args.all_label = True, False
             seg_model, base_seg_model = main.design_model(dim, args)
-            args.segmentation, args.all_label = False, True
+            args.segmentation, args.all_label = False, all_label_saved
             seg_model.set_weights(load_model.get_weights())
 
             base_model.set_weights(base_seg_model.get_weights())

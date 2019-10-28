@@ -66,7 +66,6 @@ def multi_dice(y_pred, y_true):
 
 def evaluate(X, y, gt, args):
     
-    print(args.all_label)
     if args.all_label:
         labels = all_labels
     else:
@@ -88,14 +87,11 @@ def evaluate(X, y, gt, args):
             gt = reference_mask[k, ...]
 
             dice_dict = {}
-            print(gt.shape)
-            print(y_pred.shape)
-            print(labels)
 
             for i, label in enumerate(labels.values()):
 
-                dice_dict['target_' + label] = dice(gt[..., i] > 0,
-                                                    y_pred[..., i] > 0)
+                dice_dict['target_' + label] = dice(gt[..., (i+1)] > 0,
+                                                    y_pred[..., (i+1)] > 0)
 
             dice_list.append(dice_dict)
 
