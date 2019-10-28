@@ -62,7 +62,7 @@ def predict(args):
     data_path = main_path + 'data/' + args.folder
     dataset_path = main_path + repo_name + 'datasets/'
     save_path = main_path + repo_name +  'save/'
-    args.model_path = main_path + repo_name + 'models/'
+    args.model_path = save_path + 'models/'
     
     save_path = save_path + 'miccai_output/'
     plot_path = save_path + 'miccai_plot/'
