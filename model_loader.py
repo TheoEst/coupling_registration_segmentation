@@ -30,6 +30,7 @@ def Encoder(pool_blocks, channels, dim):
 
     return models.Model(input_layer, skip_x)
 
+
 def getVNetModel(X, affine, deform_regularisation,
                  affine_regularisation,
                  channel_division=1,
@@ -38,7 +39,7 @@ def getVNetModel(X, affine, deform_regularisation,
                  use_mask=False,
                  non_rigid_trainable=True,
                  affine_trainable=True,
-                 dim=(128, 128, 128), 
+                 dim=(128, 128, 128),
                  all_label=False
                  ):
 
@@ -52,7 +53,7 @@ def getVNetModel(X, affine, deform_regularisation,
     channels = [int(channel / channel_division) for channel in channels]
 
     # Encoder
-    
+
     encoder = Encoder(pool_blocks, channels, dim)
 
     i = layers.Concatenate(axis=-1)([moving, reference])
@@ -60,7 +61,7 @@ def getVNetModel(X, affine, deform_regularisation,
 
     # Decoder
     out = blocks.DecoderBlock(skip_x, pool_blocks, channels)
-    
+
     # Deformable part
     deformable = blocks.DeformableBlock(out, channels[1],
                                         deform_regularisation,
@@ -84,7 +85,7 @@ def getVNetModel(X, affine, deform_regularisation,
     if segmentation:
 
         out = blocks.DecoderSegmentationBlock(skip_x, pool_blocks,
-                                                channels)
+                                              channels)
 
         seg = blocks.SegmentationBlock(out, channels[1], all_label)
 
@@ -92,11 +93,11 @@ def getVNetModel(X, affine, deform_regularisation,
             [seg, defgrid])
 
         return deformed, defgrid, deformed_mask, seg
-    
+
     elif use_mask:
         deformed_mask = Transformer.diffeomorphicTransformer3D(name='deformed_mask')(
             [moving_mask, defgrid])
         return deformed, defgrid, deformed_mask
-        
+
     else:
-            return deformed, defgrid
+        return deformed, defgrid
