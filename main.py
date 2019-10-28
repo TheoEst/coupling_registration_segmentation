@@ -277,7 +277,7 @@ def main(args):
     data_path = main_path + 'data/' + args.folder
     dataset_path = main_path + repo_name + 'datasets/'
     save_path = main_path + repo_name +  'save/'
-    args.model_path = main_path + repo_name + 'models/'
+    args.model_path = save_path + 'models/'
 
     session_name = args.session_name + '_' + time.strftime('%m.%d %Hh%M')
     
