@@ -42,7 +42,8 @@ def search_model(args):
     '''
 
     save_path = args.model_path
-
+    print(args.model_path)
+    print(os.listdir(save_path))
     models = [file for file in os.listdir(save_path)
               if args.load_name in file]
 

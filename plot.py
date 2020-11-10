@@ -41,9 +41,14 @@ def plot_contour(X, y, gt, plot_path, args):
 
     n_col = 3
 
-    reference = np.squeeze(reference)
-    moving = np.squeeze(moving)
-    deformed = np.squeeze(deformed)
+    if args.batch_size > 1:
+        reference = np.squeeze(reference)
+        moving = np.squeeze(moving)
+        deformed = np.squeeze(deformed)
+    else:
+        reference = reference[..., 0]
+        moving = moving[..., 0]
+        deformed = deformed[..., 0]
 
     if args.plot_grid:
         n_col = 4
@@ -106,7 +111,9 @@ def plot_contour(X, y, gt, plot_path, args):
 
             ax[2, 3].contour(dx[:, :, z_slice], **contour_kwargs)
             ax[2, 3].contour(dy[:, :, z_slice], **contour_kwargs)
-
+            
+            ax[0, 3].set_title('Grid')
+                    
         for i in range(3):
             for j in range(n_col):
                 ax[i, j].grid(False)
@@ -117,7 +124,6 @@ def plot_contour(X, y, gt, plot_path, args):
         ax[0, 0].set_title('Target')
         ax[0, 1].set_title('Source')
         ax[0, 2].set_title('Deformed')
-        ax[0, 3].set_title('Grid')
 
         fig.canvas.draw()
 

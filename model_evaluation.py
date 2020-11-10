@@ -54,7 +54,7 @@ def predict(args):
     data_path = main_path + 'data/' + args.folder
     dataset_path = main_path + repo_name + 'datasets/'
     save_path = main_path + repo_name +  'save/'
-    args.model_path = main_path + repo_name + 'models/'
+    args.model_path = save_path + 'models/'
             
     for folder in [save_path, args.model_path, dataset_path]:
         if not os.path.isdir(folder):
@@ -94,9 +94,10 @@ def predict(args):
         model.compile(optimizer='adam')
 
         if args.load_segmentation:
+            all_label_saved = args.all_label
             args.segmentation, args.all_label = True, False
             seg_model, base_seg_model = main.design_model(dim, args)
-            args.segmentation, args.all_label  = False, True
+            args.segmentation, args.all_label = False, all_label_saved
             seg_model.set_weights(load_model.get_weights())
 
             base_model.set_weights(base_seg_model.get_weights())

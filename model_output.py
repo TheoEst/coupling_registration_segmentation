@@ -28,6 +28,7 @@ else:
 
 repo_name = 'coupling_registration_segmentation/'
 
+
 def parse_args():
 
     parser_main = main.parse_args(add_help=False)
@@ -46,43 +47,43 @@ def parse_args():
 
     parser.add_argument('--plot-grid', action='store_true',
                         help='Plot the grid')
-    
+
     parser.add_argument('--pretrained', action='store_true')
-    
+
     parser.add_argument('--load-segmentation', action='store_true',
-						help='This option is needed when you want to deformed the ground-truth segmentation but load a bi task model')
-        
+                        help='This option is needed when you want to deformed the ground-truth segmentation but load a bi task model')
+
     args = parser.parse_args()
-    
+
     return args
 
 
 def predict(args):
-    
+
     data_path = main_path + 'data/' + args.folder
     dataset_path = main_path + repo_name + 'datasets/'
-    save_path = main_path + repo_name +  'save/'
-    args.model_path = main_path + repo_name + 'models/'
-    
+    save_path = main_path + repo_name + 'save/'
+    args.model_path = save_path + 'models/'
+
     save_path = save_path + 'miccai_output/'
     plot_path = save_path + 'miccai_plot/'
-     
+
     for folder in [save_path, args.model_path, dataset_path]:
         if not os.path.isdir(folder):
             os.makedirs(folder)
-    
+
     dim = (160, 176, 208)
-    
+
     # Parameters
     params = {'data_path': data_path,
               'dim': dim,
               'batch_size': args.batch_size,
               'shuffle': True,
-              'translation':args.translation}
+              'translation': args.translation}
 
     # Datasets
     (files_train, files_validation,
-	files_test) = Dataset.load_existing_dataset(dataset_path)
+        files_test) = Dataset.load_existing_dataset(dataset_path)
 
     # Generators
     if args.use_mask or args.segmentation:
@@ -96,8 +97,9 @@ def predict(args):
     if args.test:
         validation_generator = DataGen(files_test, validation=True, **params)
     else:
-        validation_generator = DataGen(files_validation, validation=True, **params)
-    
+        validation_generator = DataGen(
+            files_validation, validation=True, **params)
+
     if args.pretrained:
         load_model, model_name, model_epoch = utils.load(args)
 
@@ -105,9 +107,10 @@ def predict(args):
         model.compile(optimizer='adam')
 
         if args.load_segmentation:
+            all_label_saved = args.all_label
             args.segmentation, args.all_label = True, False
             seg_model, base_seg_model = main.design_model(dim, args)
-            args.segmentation, args.all_label  = False, True
+            args.segmentation, args.all_label = False, all_label_saved
             seg_model.set_weights(load_model.get_weights())
 
             base_model.set_weights(base_seg_model.get_weights())
@@ -121,7 +124,7 @@ def predict(args):
 
     if args.parallel:
         model = keras.utils.multi_gpu_model(model, gpus=args.nb_gpu)
-        
+
     save_path += model_name + '/' + model_epoch + '/'
     plot_path += model_name + '/' + model_epoch + '/'
 
